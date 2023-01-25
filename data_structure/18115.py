@@ -17,7 +17,7 @@ for index in range(n-2, -1, -1):
     order = input_data[index]
     if order == 1:
         answer_deck.appendleft(frist_card)
-        frist_card = now_cardW
+        frist_card = now_card
 
     elif order == 2:
         answer_deck.appendleft(now_card)
