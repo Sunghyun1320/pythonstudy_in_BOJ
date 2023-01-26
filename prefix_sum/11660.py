@@ -4,7 +4,7 @@ input = sys.stdin.readline
 n, m = map(int, input().split())
 
 # 누적합이 저장될 배열
-sum_data = [[0 for _ in range(n+1)] for _ in range(n+1)]\
+sum_data = [[0 for _ in range(n+1)] for _ in range(n+1)]
     
 # 2차원 누적합 저장
 for i in range(1, n+1):
