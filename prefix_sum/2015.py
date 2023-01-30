@@ -1,7 +1,5 @@
 import sys
 input = sys.stdin.readline
-<<<<<<< HEAD
-###############################################
 
 n, k = map(int, input().split())
 input_data = list(map(int, input().split()))  # 배열 데이터
