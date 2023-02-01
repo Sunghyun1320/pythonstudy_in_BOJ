@@ -42,11 +42,3 @@ for time in mos:
 
 print(max_mos_count)
 print(max_mos_time[0], max_mos_time[1])
-
-
-
-
-
-
-
-
