@@ -4,26 +4,37 @@ input = sys.stdin.readline
 # 괄호 쌍 중 제거할 괄호쌍을 고른 조합을 만드는 함수
 # 제거할 괄호쌍은 0 유지할 괄호쌍은 1
 def Make_combination_dfs(depth = 0, combination = []):
-    if depth == len(couple_bracket):
-        Make_answer(combination)
-        return
 
-    for i in range(2):
-        combination.append(i)
-        Make_combination_dfs(depth + 1, combination)
-        combination.pop(-1)
+    # if depth == len(couple_bracket):
+    #     Make_answer(combination)
+    #     return
+    #
+    # for i in range(2):
+    #     combination.append(i)
+    #     Make_combination_dfs(depth + 1, combination)
+    #     combination.pop(-1)
+
+    #######################################################
+
+    # dfs가 아니라 조합으로 정답 구하기
+    n = len(couple_bracket)
+
+    for i in range((1 << n) - 1):
+        temp = bin(i)[2:]
+        combination = "0" * (n-len(temp)) + temp
+        Make_answer(combination)
 
 ##############################################
 # 제거, 유지가 확정된 조합으로 정답을 만들 함수
 def Make_answer(combination):
     # 제거가 없는 조합은 무시
-    if 0 not in combination:
-        return
+    # if 0 not in combination:
+    #     return
 
     global answer
     string = list(input_data)
     for i in range(len(combination)):
-        if combination[i] == 0:
+        if combination[i] == '0':
             string[couple_bracket[i][0]] = None
             string[couple_bracket[i][1]] = None
 
@@ -34,9 +45,9 @@ def Make_answer(combination):
     if temp not in answer:
         answer.append(temp)
 
+
 ##############################################
 # 연산 시작
-
 input_data = input().rstrip()
 
 # 괄호 쌍을 찾는 스택
