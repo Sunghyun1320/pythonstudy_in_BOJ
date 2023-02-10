@@ -1,8 +1,8 @@
 import sys
 from collections import deque
+import heapq
 input = sys.stdin.readline
 ################################################################
-
 dx = [1, 0, -1, 0]
 dy = [0, 1, 0, -1]
 
@@ -22,6 +22,9 @@ island_char = ord("A")
 # 모든 섬들을 구분하기 'A' ~ 'F'
 for i in range(n):
     for j in range(m):
+        if island[i][j] == 0:
+            island[i][j] = '0'
+            continue
         # 섬을 찾으면
         if island[i][j] == 1:
             # 섬의 개수 추가
@@ -54,30 +57,28 @@ for i in range(n):
             island_char += 1
 
 
-for i in island:
-    print(i)
-
-print("#############################")
+# for i in island:
+#     print(i)
+#
+# print("#############################")
 ################################################################
-# 섬들간 다리를 놓을 때 최단 경로인 다리만 세는 리스트
-
 # 가로방향으로 놓을 수 있는 모든 다리 체크
 for i in range(n):
     s = False
     len_load = 0
     for j in range(1, m):
         # 가로방향 체크시 섬이 바다와 맞닿으면 시작점은 해당 섬
-        if str(island[i][j-1]).isalpha() and island[i][j] == 0:
+        if str(island[i][j-1]).isalpha() and island[i][j] == '0':
             s = island[i][j-1]
 
         # 시작섬이 있고, 해당칸이 바다이면 다리길이 늘리기
-        if s and island[i][j] == 0:
+        if s and island[i][j] == '0':
             len_load += 1
 
         # 시작섬이 있고, 다른 섬에 도착했을 때
         if s and str(island[i][j]).isalpha():
             # 다리의 길이가 2 이상이고,
-            if len_load >= 2:
+            if len_load >= 2 and island[i][j] != s:
                 # 해당 섬까지의 경로가 최단경로이면 갱신
                 # 이전에 탐색되지 않은 경로면 그냥 추가
                 if load[s].get(island[i][j], 11) > len_load:
@@ -103,16 +104,16 @@ for j in range(m):
     len_load = 0
     for i in range(1, n):
         # 세로방향 체크시 섬이 바다와 맞닿으면 시작점은 해당 섬
-        if str(island[i - 1][j]).isalpha() and island[i][j] == 0:
+        if str(island[i - 1][j]).isalpha() and island[i][j] == '0':
             s = island[i-1][j]
 
-        if s and island[i][j] == 0:
+        if s and island[i][j] == '0':
             len_load += 1
 
         # 시작섬이 있고, 다른 섬에 도착했을 때
         if s and str(island[i][j]).isalpha():
             #  다리 길이가 2 이상이고
-            if len_load >= 2:
+            if len_load >= 2 and island[i][j] != s:
                 # 이전에 탐색한 다리길이 보다 짧으면 거리 갱신
                 # 경로와 열 추가 행, 열은 양수 음수로 구분
                 if load[s].get(island[i][j], 11)> len_load:
@@ -129,17 +130,44 @@ for j in range(m):
             # 하나의 행에 2개의 다리가 놓일 수 있으므로 초기화
             len_load = 0
             s = False
-
+#
 # for i in load.items():
 #     print(i)
 
 ################################################################
-# 이제 필요없는 다리 삭제 해야 하는데....
-# 형태가 트리 형태가 되면 다리를 삭제 시킬 수 있다.
-# 근데 트리형태가 되는 다리를 어떻게 찾고
-# 그 다리의 최대 값은 어떻게 찾지
+# 만들어진 그래프에서 최소신장 트리 찾기
+cost = []
+heapq.heappush(cost, (0, 'A',))
+visited = {}
 
-# 또 다리 겹치는 부분은 어떻게 찾지.....
+answer = 0
+i = 0
+while True:
+    if i == count_island and len(visited) == count_island:
+        print(answer)
+        break
+
+    if not cost:
+        print(-1)
+        break
+
+    load_cost, node = heapq.heappop(cost)
+    if visited.get(node, False):
+        continue
+
+    visited[node] = True
+    answer += load_cost
+
+    for key, values in load[node].items():
+        if not visited.get(key, False):
+            heapq.heappush(cost, (values, key,))
+
+    i += 1
+
+
+
+
+
 
 
 
