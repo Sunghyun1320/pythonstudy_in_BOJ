@@ -13,6 +13,7 @@ def max_level(level):
 
     return (k**level - 1) // (k - 1)
 
+
 ################################################
 # 자신의 레벨을 찾는 함수
 def find_my_level(node):
@@ -22,6 +23,7 @@ def find_my_level(node):
             return i
 
         i += 1
+
 
 ################################################
 # 자신의 부모노드를 구하는 함수
@@ -40,9 +42,10 @@ def find_parent(node, node_level):
 
     return parent
 
+
 ################################################
 # 데이터 입력받기
-n, k ,q = map(int, input().split())
+n, k, q = map(int, input().split())
 
 for _ in range(q):
     x, y = map(int, input().split())
