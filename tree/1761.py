@@ -55,6 +55,8 @@ for i in range(1, LOG):
 
 # for i in tree:
 #     print(i)
+#
+# print("#" * 20)
 ###########################################
 m = int(input())
 
@@ -74,12 +76,13 @@ for _ in range(m):
             a = tree[a][i][0]
 
     if a == b:
+        # print("공통 조상 :", a)
         print(distance)
         continue
 
     # 조상노드 찾기
     for i in range(LOG-1, -1, -1):
-        if tree[a][i] != tree[b][i]:
+        if tree[a][i][0] != tree[b][i][0]:
             distance += tree[a][i][1]
             distance += tree[b][i][1]
             a = tree[a][i][0]
@@ -88,5 +91,6 @@ for _ in range(m):
     distance += tree[a][0][1]
     distance += tree[b][0][1]
 
+    # print("공통 조상 :", tree[a][0][0])
     print(distance)
 
