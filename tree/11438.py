@@ -3,13 +3,13 @@ input = sys.stdin.readline
 # 문제에서 주어진 최대 깊이를 기준으로
 # 2분탐색으로 탐색하므로 log값 구하기
 max_depth = 100000
-LOG = 21
-# while True:
-#     if 2 ** LOG > max_depth:
-#         LOG += 1
-#         break
-#
-#     LOG += 1
+LOG = 0
+while True:
+    if 2 ** LOG > max_depth:
+        LOG += 1
+        break
+
+    LOG += 1
 
 ###########################################
 n = int(input())
